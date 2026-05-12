@@ -11,6 +11,7 @@ set background=dark
 set hidden
 set expandtab
 set tabstop=4
+set mouse=a
 syntax enable
 colorscheme desert 
 
@@ -39,3 +40,31 @@ highlight LspHintText guifg=#50fa7b gui=underline ctermfg=Green cterm=underline
 " Link the virtual text (the yellow line) to a dimmer color
 highlight link LspErrorVirtualText Comment
 highlight link LspWarningVirtualText Comment
+
+
+" --- VIM-LSP KEYMAPS ---
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    
+    " Hover documentation (Shift+K)
+    nmap <buffer> K <plug>(lsp-hover)
+   
+    " Go to definition (gd)
+    nmap <buffer> gd <plug>(lsp-definition)
+    
+    " Go to implementation (gi)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    
+    " Go to references (gr)
+    nmap <buffer> gr <plug>(lsp-references)
+    
+    " Rename symbol (Leader + rn)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+endfunction
+
+augroup lsp_install
+    au!
+    " Attach these keymaps only when an LSP server is active for the buffer
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
