@@ -1,0 +1,11 @@
+# Shared Environment Variables
+export MOZ_ENABLE_WAYLAND=1
+export EDITOR="nvim"
+
+# Shared Aliases
+alias ll="ls -la"  
+alias update="sudo apt update && sudo apt upgrade -y"
+
+alias top="btop"
+alias k="kubectl"
+export PATH="$PATH:$HOME/.cargo/bin/"
